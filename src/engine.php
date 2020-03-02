@@ -19,4 +19,6 @@ function run()
     DOC;
 
     $args = \Docopt::handle($doc, array('version' => 'dev'));
+
+    var_dump($args);
 }

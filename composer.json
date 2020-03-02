@@ -9,8 +9,7 @@
     "license": "GPL",
     "authors": [
         {
-            "name": "bunkua",
-            "email": "f@a.com"
+            "name": "bunkua"
         }
     ],
     "bin": ["bin/gendiff"],
