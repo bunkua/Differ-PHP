@@ -1,0 +1,28 @@
+{
+    "name": "bunkua/php-project-2",
+    "description": "Hexlet PHP Project 2",
+    "keywords": ["hexlet", "project 2", "diff"],
+    "type": "project",
+    "require": {
+        "docopt/docopt": "*"
+    },
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "bunkua",
+            "email": "f@a.com"
+        }
+    ],
+    "bin": ["bin/gendiff"],
+    "autoload": {
+        "files": [
+            "src/engine.php"
+        ]
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "3.*"
+    },
+    "scripts": {
+        "phpcs": "vendor/bin/phpcs"
+    }
+}
