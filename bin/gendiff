@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-namespace Gendiff;
+namespace Differ;
 
 $autoloadPath1 = __DIR__ . '/../vendor/autoload.php';
 $autoloadPath2 = __DIR__ . '/../../../autoload.php';

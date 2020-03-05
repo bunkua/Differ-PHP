@@ -1,24 +1,18 @@
 <?php
 
-namespace Gendiff;
+namespace Differ;
 
 function run()
 {
-    $doc = <<<DOC
-    Generate diff
-
-    Usage:
-      gendiff (-h|--help)
-      gendiff (-v|--version)
-      gendiff [--format <fmt>] <firstFile> <secondFile>
-    
-    Options:
-      -h --help                     Show this screen
-      -v --version                  Show version
-      --format <fmt>                Report format [default: pretty]
-    DOC;
-
+    $currentDir = dirname(__FILE__);
+    $doc = file_get_contents($currentDir . '/helpfile.docopt');
+  
     $args = \Docopt::handle($doc, array('version' => 'dev'));
+    $pathToFile1 = $args->args['<firstFile>'];
+    $pathToFile2 = $args->args['<secondFile>'];
 
-    var_dump($args);
+    $firstFileJson = file_get_contents(getcwd() . "/$pathToFile1");
+    $secondFileJson = file_get_contents(getcwd() . "/$pathToFile2");
+
+    return genDiff($firstFileJson, $secondFileJson);
 }

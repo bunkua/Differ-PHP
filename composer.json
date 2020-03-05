@@ -4,7 +4,8 @@
     "keywords": ["hexlet", "project 2", "diff"],
     "type": "project",
     "require": {
-        "docopt/docopt": "*"
+        "docopt/docopt": "*",
+        "funct/funct": "^1.5"
     },
     "license": "GPL",
     "authors": [
@@ -15,7 +16,8 @@
     "bin": ["bin/gendiff"],
     "autoload": {
         "files": [
-            "src/engine.php"
+            "src/engine.php",
+            "src/genDiff.php"
         ]
     },
     "require-dev": {
