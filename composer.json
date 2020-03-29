@@ -20,7 +20,8 @@
             "src/Gendiff.php",
             "src/Parser.php",
             "src/Builder.php",
-            "src/Render.php"
+            "src/Render.php",
+            "src/renders/Pretty.php"
         ]
     },
     "require-dev": {

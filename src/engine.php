@@ -11,6 +11,6 @@ function run()
     $pathToFile1 = $args->args['<firstFile>'] ?? null;
     $pathToFile2 = $args->args['<secondFile>'] ?? null;
     $format = $args->args["--format"] ?? null;
-    
-    echo genDiff($pathToFile1, $pathToFile2, $format);
+
+    echo genDiff($pathToFile1, $pathToFile2, $format) . "\n";
 }
