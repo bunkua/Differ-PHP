@@ -1,9 +1,10 @@
 language: php
 php:
-  - '7.2'
+  - '7.*'
 
 install:
   - make install
 
-script: 
+script:
   - make lint
+  - make test

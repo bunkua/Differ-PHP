@@ -34,7 +34,7 @@ function prepare($data)
 {
     $replace = ["\""];
     $prepared = json_encode($data, JSON_PRETTY_PRINT);
-    $noQuotes = str_replace("\"", "", $prepared);
-    $result = str_replace("\n  ", "\n", $noQuotes);
+    $noQuotesCommas = str_replace(["\"", ","], "", $prepared);
+    $result = str_replace("\n  ", "\n", $noQuotesCommas);
     return $result;
 }

@@ -7,8 +7,11 @@ install:
 lint:
 	composer run-script phpcs -- --standard=PSR12 src bin
 
+test:
+	composer run-script phpunit tests/
+
 plain:
-	bin/gendiff tests/fixtures/before.json tests/fixtures/after.json
+	bin/gendiff tests/fixtures/json/before.json tests/fixtures/json/after.json
 
 nested:
-	bin/gendiff tests/fixtures/before2.json tests/fixtures/after2.json
+	bin/gendiff tests/fixtures/json/before2.json tests/fixtures/json/after2.json
