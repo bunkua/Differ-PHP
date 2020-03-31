@@ -2,25 +2,34 @@
 
 namespace Parser;
 
+use Symfony\Component\Yaml\Yaml;
+
 function parse($filepath)
 {
-    $parse = function ($path) {
-        $fileFormat = pathinfo($path, PATHINFO_EXTENSION);
+    if (file_exists($filepath)) {
+        $fileContents = file_get_contents($filepath);
+    } else {
+        return null;
+    }
 
-        if (file_exists($path)) {
-            $fileContents = file_get_contents($path);
-        } else {
-            echo "No such file \"{$path}\" \n";
-            return null;
-        }
+    $parse = getParser($filepath);
 
-        switch ($fileFormat) {
+    return $parse($fileContents);
+}
+
+function getParser($filepath)
+{
+    $fileExtension = pathinfo($filepath, PATHINFO_EXTENSION);
+    $format = ($fileExtension == 'yaml') ? 'yml' : $fileExtension;
+
+    return function ($fileContents) use ($format) {
+        switch ($format) {
             case "json":
-                return json_decode($fileContents, true);
+                return (array) json_decode($fileContents);
+            case "yml":
+                return (array) Yaml::parse($fileContents, Yaml::PARSE_OBJECT_FOR_MAP);
             default:
                 return;
         }
     };
-
-    return $parse($filepath);
 }

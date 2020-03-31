@@ -5,7 +5,8 @@
     "type": "project",
     "require": {
         "docopt/docopt": "*",
-        "funct/funct": "^1.5"
+        "funct/funct": "^1.5",
+        "symfony/yaml": "^5.0"
     },
     "license": "GPL",
     "authors": [

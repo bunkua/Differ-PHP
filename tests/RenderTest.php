@@ -6,12 +6,29 @@ use PHPUnit\Framework\TestCase;
 
 class GendiffTest extends TestCase
 {
-    public function testgenDiff()
+    /**
+    * @dataProvider dataProvider
+    */
+    public function testgenDiff($pathBefore, $pathAfter, $resultPath)
     {
-        $pathBefore = 'tests/fixtures/json/before.json';
-        $pathAfter = 'tests/fixtures/json/after.json';
-        $expected = file_get_contents("tests/fixtures/pretty_plain.txt");
+        $expected = file_get_contents($resultPath);
 
         $this->assertEquals($expected, genDiff($pathBefore, $pathAfter, 'pretty'));
+    }
+
+    public function dataProvider()
+    {
+        return [
+            [
+                'tests/fixtures/json/before.json',
+                'tests/fixtures/json/after.json',
+                'tests/fixtures/pretty_plain.txt'
+            ],
+            [
+                'tests/fixtures/yaml/before.yaml',
+                'tests/fixtures/yaml/after.yml',
+                'tests/fixtures/pretty_plain.txt'
+            ]
+        ];
     }
 }
