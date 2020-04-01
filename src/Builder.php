@@ -11,6 +11,14 @@ function buildTree($firstTree, $secondTree)
     $treeKeys = union($firstTreeKeys, $secondTreeKeys);
 
     $makeNode = function ($key) use ($firstTree, $secondTree) {
+        $firstIsObject = isset($firstTree[$key]) && is_object($firstTree[$key]);
+        $secondIsObject = isset($secondTree[$key]) && is_object($secondTree[$key]);
+
+        if ($firstIsObject && $secondIsObject) {
+            $before = (array) $firstTree[$key];
+            $after = (array) $secondTree[$key];
+            return ["key" => $key, "children" => buildTree($before, $after)];
+        }
         if (!array_key_exists($key, $firstTree)) {
             return buildNodeData("added", $key, null, $secondTree[$key]);
         }
