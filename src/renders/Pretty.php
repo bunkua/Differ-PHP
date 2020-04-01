@@ -10,6 +10,7 @@ function pretty($tree, $level = BASE_INDENT_LEVEL)
     $prepared = reduce($tree, function ($node, $pointer) {
         return processNode($node, $pointer);
     }, $level + 1);
+
     return putBraces($prepared, $level + 1);
 }
 
@@ -19,12 +20,13 @@ function reduce($tree, $handle, $pointer)
         $acc = array_merge($acc, $handle($node, $pointer));
         return $acc;
     };
+    
     return array_reduce($tree, $func, []);
 }
 
-function processNode($node, $pointer)
+function processNode($node, $level)
 {
-    $indent = makeIndent($pointer);
+    $indent = makeIndent($level);
     $indentNew = substr_replace($indent, "+", -2, 1);
     $indentOld = substr_replace($indent, "-", -2, 1);
 
@@ -33,28 +35,28 @@ function processNode($node, $pointer)
 
     if ($children) {
         $childArr = (array) $children;
-        $value = pretty($childArr, $pointer);
+        $value = pretty($childArr, $level);
         return ["{$indent}{$key}: $value"];
     }
 
     if ($node['status'] == 'unchanged') {
-        $value = processValue($node['newValue'], $pointer + 1);
+        $value = processValue($node['newValue'], $level + 1);
         return ["{$indent}{$key}: {$value}"];
     }
 
     if ($node['status'] == 'added') {
-        $value = processValue($node['newValue'], $pointer + 1);
+        $value = processValue($node['newValue'], $level + 1);
         return ["{$indentNew}{$key}: {$value}"];
     }
 
     if ($node['status'] == 'removed') {
-        $value = processValue($node['oldValue'], $pointer + 1);
+        $value = processValue($node['oldValue'], $level + 1);
         return ["{$indentOld}{$key}: {$value}"];
     }
 
     if ($node['status'] == 'changed') {
-        $oldValue = processValue($node['oldValue'], $pointer + 1);
-        $newValue = processValue($node['newValue'], $pointer + 1);
+        $oldValue = processValue($node['oldValue'], $level + 1);
+        $newValue = processValue($node['newValue'], $level + 1);
         return [
             "{$indentNew}{$key}: {$newValue}",
             "{$indentOld}{$key}: {$oldValue}"

@@ -3,6 +3,7 @@
 namespace Render;
 
 use function Render\Pretty\pretty;
+
 //use function Render\Plain\plain;
 //use function Render\Json\json;
 
