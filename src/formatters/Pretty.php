@@ -1,6 +1,6 @@
 <?php
 
-namespace Render\Pretty;
+namespace Formatters\Pretty;
 
 const BASE_INDENT_LEVEL = 0;
 const INDENT_SPACES = 4;
@@ -20,7 +20,7 @@ function reduce($tree, $handle, $pointer)
         $acc = array_merge($acc, $handle($node, $pointer));
         return $acc;
     };
-    
+
     return array_reduce($tree, $func, []);
 }
 

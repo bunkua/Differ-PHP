@@ -22,7 +22,7 @@
             "src/Parser.php",
             "src/Builder.php",
             "src/Render.php",
-            "src/renders/Pretty.php"
+            "src/formatters/Pretty.php"
         ]
     },
     "require-dev": {
