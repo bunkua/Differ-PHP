@@ -4,8 +4,7 @@ namespace Render;
 
 use function Formatters\Pretty\pretty;
 use function Formatters\Plain\plain;
-
-//use function Render\Json\json;
+use function Formatters\Json\json;
 
 function render($tree, $format)
 {
@@ -17,12 +16,16 @@ function chooseRenderer($format)
 {
     switch ($format) {
         case 'plain':
-            return function ($node) {
-                return plain($node);
+            return function ($tree) {
+                return plain($tree);
+            };
+        case 'json':
+            return function ($tree) {
+                return json($tree);
             };
         default:
-            return function ($node) {
-                return pretty($node);
+            return function ($tree) {
+                return pretty($tree);
             };
     }
 }

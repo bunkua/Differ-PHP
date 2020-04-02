@@ -1,0 +1,39 @@
+{
+    "common": {
+        "setting1": "Value 1",
+        "setting2": {
+            "old": "200"
+        },
+        "setting3": true,
+        "setting6": {
+            "old": {
+                "key": "value"
+            }
+        },
+        "setting4": {
+            "new": "blah blah"
+        },
+        "setting5": {
+            "new": {
+                "key5": "value5"
+            }
+        }
+    },
+    "group1": {
+        "baz": {
+            "old": "bas",
+            "new": "bars"
+        },
+        "foo": "bar"
+    },
+    "group2": {
+        "old": {
+            "abc": "12345"
+        }
+    },
+    "group3": {
+        "new": {
+            "fee": "100500"
+        }
+    }
+}
