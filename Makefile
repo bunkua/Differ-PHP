@@ -21,3 +21,9 @@ plain-yml:
 
 nested-yml:
 	bin/gendiff tests/fixtures/yaml/before2.yaml tests/fixtures/yaml/after2.yml
+
+plain-plain:
+	bin/gendiff --format plain tests/fixtures/json/before.json tests/fixtures/json/after.json
+
+nested-plain:
+	bin/gendiff --format plain tests/fixtures/json/before2.json tests/fixtures/json/after2.json

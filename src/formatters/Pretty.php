@@ -2,26 +2,18 @@
 
 namespace Formatters\Pretty;
 
+use function Lib\reduce;
+
 const BASE_INDENT_LEVEL = 0;
 const INDENT_SPACES = 4;
 
 function pretty($tree, $level = BASE_INDENT_LEVEL)
 {
-    $prepared = reduce($tree, function ($node, $pointer) {
-        return processNode($node, $pointer);
+    $preparedTree = reduce($tree, function ($node, $level) {
+        return processNode($node, $level);
     }, $level + 1);
 
-    return putBraces($prepared, $level + 1);
-}
-
-function reduce($tree, $handle, $pointer)
-{
-    $func = function ($acc, $node) use ($handle, $pointer) {
-        $acc = array_merge($acc, $handle($node, $pointer));
-        return $acc;
-    };
-
-    return array_reduce($tree, $func, []);
+    return putBraces($preparedTree, $level + 1);
 }
 
 function processNode($node, $level)

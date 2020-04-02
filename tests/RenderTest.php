@@ -37,6 +37,24 @@ class GendiffTest extends TestCase
                 'tests/fixtures/pretty_nested.txt',
                 'pretty'
             ],
+            [
+                'tests/fixtures/yaml/before2.yaml',
+                'tests/fixtures/yaml/after2.yml',
+                'tests/fixtures/pretty_nested.txt',
+                'pretty'
+            ],
+            [
+                'tests/fixtures/json/before2.json',
+                'tests/fixtures/json/after2.json',
+                'tests/fixtures/plain_nested.txt',
+                'plain'
+            ],
+            [
+                'tests/fixtures/yaml/before2.yaml',
+                'tests/fixtures/yaml/after2.yml',
+                'tests/fixtures/plain_nested.txt',
+                'plain'
+            ]
         ];
     }
 }
