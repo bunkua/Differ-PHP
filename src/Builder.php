@@ -40,7 +40,6 @@ function buildTree($firstTree, $secondTree)
 function buildNodeData($status, $key, $oldValue, $newValue)
 {
     return [
-        "type" => "value",
         "status" => $status,
         "key" => $key,
         "oldValue" => $oldValue,
