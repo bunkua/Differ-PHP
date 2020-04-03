@@ -1,32 +1,45 @@
+# Name of workflow
 name: Differ
 
+# Trigger the workflow on push or pull request
 on:
-  push:
-    branches: [ master ]
+  - push
+  - pull_request
 
 jobs:
   build:
 
+    # The type of machine to run the job on
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '7.4'
-        tools: phpunit
-
-    - name: Validate composer.json and composer.lock
-      run: composer validate
-
-    - name: Install dependencies
-      run: make install
-
-    - name: Run linter
-      run: make lint
-
-    - name: Run tests
-      run: make test
+        # Check-out repository under GitHub workspace
+        # https://github.com/actions/checkout
+      - uses: actions/checkout@v2
+        # Step's name
+      - name: Setup PHP
+        # Action gives to setup the PHP environment to test application
+        # https://github.com/shivammathur/setup-php
+        uses: shivammathur/setup-php@v1
+        with:
+          # Specify the PHP version
+          php-version: '7.3'
+      - name: Install
+        # Install project
+        run: make install
+      - name: Run linter
+        # Run Linter
+        run: make lint
+      - name: Run tests
+        #Run tests
+        run: make test
+        # Publish code coverage on Code Climate
+        # https://github.com/paambaati/codeclimate-action
+      - name: Run test & publish code coverage
+        uses: paambaati/codeclimate-action@v2.4.0
+        # Add Code Climate secret key
+        env:
+          CC_TEST_REPORTER_ID: ${{ 0558055492b30f25cb4d507a879356f47099c25528fce2f356e1ad4d1a44858c }}
+        with:
+          coverageCommand: make test
+          debug: true
