@@ -28,34 +28,32 @@ function processNode($node, $level)
     if ($children) {
         $childArr = (array) $children;
         $value = pretty($childArr, $level);
-        $result = ["{$indent}{$key}: $value"];
+        return ["{$indent}{$key}: $value"];
     }
 
     if ($node['status'] == 'unchanged') {
         $value = processValue($node['newValue'], $level + 1);
-        $result = ["{$indent}{$key}: {$value}"];
+        return ["{$indent}{$key}: {$value}"];
     }
 
     if ($node['status'] == 'added') {
         $value = processValue($node['newValue'], $level + 1);
-        $result = ["{$indentNew}{$key}: {$value}"];
+        return ["{$indentNew}{$key}: {$value}"];
     }
 
     if ($node['status'] == 'removed') {
         $value = processValue($node['oldValue'], $level + 1);
-        $result = ["{$indentOld}{$key}: {$value}"];
+        return ["{$indentOld}{$key}: {$value}"];
     }
 
     if ($node['status'] == 'changed') {
         $oldValue = processValue($node['oldValue'], $level + 1);
         $newValue = processValue($node['newValue'], $level + 1);
-        $result = [
+        return [
             "{$indentNew}{$key}: {$newValue}",
             "{$indentOld}{$key}: {$oldValue}"
         ];
     }
-
-    return $result;
 }
 
 function makeIndent($level)
