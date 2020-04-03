@@ -1,8 +1,9 @@
 {
     "name": "bunkua/php-project-2",
-    "description": "Hexlet PHP Project 2",
+    "description": "Differ",
     "keywords": ["hexlet", "project 2", "diff"],
     "type": "project",
+    "version": '1.0.0',
     "require": {
         "docopt/docopt": "*",
         "funct/funct": "^1.5",
