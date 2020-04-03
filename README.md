@@ -32,13 +32,13 @@ gendiff <firstFile> <secondFile>
 ```
 or explicitly specifying the desired format:
 ```
-gendiff pretty <firstFile> <secondFile>
+gendiff --format pretty <firstFile> <secondFile>
 ```
 
 ```
-gendiff plain <firstFile> <secondFile>
+gendiff --format plain <firstFile> <secondFile>
 ```
 
 ```
-gendiff json <firstFile> <secondFile>
+gendiff --format json <firstFile> <secondFile>
 ```
