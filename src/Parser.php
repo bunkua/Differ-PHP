@@ -9,7 +9,7 @@ function parse($filepath)
     if (file_exists($filepath)) {
         $fileContents = file_get_contents($filepath);
     } else {
-        return null;
+        throw new \Exception("File '$filepath' does not exists");
     }
 
     $parse = getParser($filepath);
@@ -20,16 +20,16 @@ function parse($filepath)
 function getParser($filepath)
 {
     $fileExtension = pathinfo($filepath, PATHINFO_EXTENSION);
-    $format = ($fileExtension == 'yaml') ? 'yml' : $fileExtension;
+    $inputFileFormat = ($fileExtension == 'yaml') ? 'yml' : $fileExtension;
 
-    return function ($fileContents) use ($format) {
-        switch ($format) {
+    return function ($fileContents) use ($inputFileFormat) {
+        switch ($inputFileFormat) {
             case "json":
                 return (array) json_decode($fileContents);
             case "yml":
                 return (array) Yaml::parse($fileContents, Yaml::PARSE_OBJECT_FOR_MAP);
             default:
-                return;
+                throw new \Exception("Wrong file format '$inputFileFormat' or not supported");
         }
     };
 }

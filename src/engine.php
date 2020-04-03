@@ -4,8 +4,7 @@ namespace Differ;
 
 function run()
 {
-    $currentDir = dirname(__FILE__);
-    $doc = file_get_contents($currentDir . '/helpfile.docopt');
+    $doc = file_get_contents(__DIR__ . '/helpfile.docopt');
 
     $args = \Docopt::handle($doc, array('version' => 'dev'));
     $pathToFile1 = $args->args['<firstFile>'];

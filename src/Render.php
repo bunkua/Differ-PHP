@@ -6,15 +6,15 @@ use function Formatters\Pretty\pretty;
 use function Formatters\Plain\plain;
 use function Formatters\Json\json;
 
-function render($tree, $format)
+function render($tree, $outputFormat)
 {
-    $render = chooseRenderer($format);
+    $render = chooseRenderer($outputFormat);
     return $render($tree);
 }
 
-function chooseRenderer($format)
+function chooseRenderer($outputFormat)
 {
-    switch ($format) {
+    switch ($outputFormat) {
         case 'plain':
             return function ($tree) {
                 return plain($tree);
@@ -23,9 +23,11 @@ function chooseRenderer($format)
             return function ($tree) {
                 return json($tree);
             };
-        default:
+        case 'pretty':
             return function ($tree) {
                 return pretty($tree);
             };
+        default:
+            throw new \Exception("Output format '$outputFormat' is wrong or not supported");
     }
 }
