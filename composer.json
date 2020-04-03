@@ -3,7 +3,7 @@
     "description": "Differ",
     "keywords": ["hexlet", "project 2", "diff"],
     "type": "project",
-    "version": '1.0.0',
+    "version": "1.0.0",
     "require": {
         "docopt/docopt": "*",
         "funct/funct": "^1.5",
