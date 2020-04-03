@@ -17,21 +17,23 @@ function buildTree($firstTree, $secondTree)
         if ($firstIsObject && $secondIsObject) {
             $before = (array) $firstTree[$key];
             $after = (array) $secondTree[$key];
-            return ["key" => $key, "children" => buildTree($before, $after)];
+            $result = ["key" => $key, "children" => buildTree($before, $after)];
         }
         if (!array_key_exists($key, $firstTree)) {
-            return buildNodeData("added", $key, null, $secondTree[$key]);
+            $result = buildNodeData("added", $key, null, $secondTree[$key]);
         }
 
         if (!array_key_exists($key, $secondTree)) {
-            return buildNodeData("removed", $key, $firstTree[$key], null);
+            $result = buildNodeData("removed", $key, $firstTree[$key], null);
         }
 
         if ($firstTree[$key] === $secondTree[$key]) {
-            return buildNodeData("unchanged", $key, $firstTree[$key], $secondTree[$key]);
+            $result = buildNodeData("unchanged", $key, $firstTree[$key], $secondTree[$key]);
         } else {
-            return buildNodeData("changed", $key, $firstTree[$key], $secondTree[$key]);
+            $result = buildNodeData("changed", $key, $firstTree[$key], $secondTree[$key]);
         }
+
+        return $result;
     };
 
     return array_map($makeNode, $treeKeys);
