@@ -10,16 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout
     - uses: actions/checkout@v2
+
+    - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+            php-version: '7.4'
+            tools: phpunit
 
     - name: Validate composer.json and composer.lock
       run: composer validate
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
+      run: make install
 
     - name: Run linter
       run: make lint
-    
+
     - name: Run tests
       run: make test
