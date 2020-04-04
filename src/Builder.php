@@ -1,6 +1,6 @@
 <?php
 
-namespace Builder;
+namespace Differ\Builder;
 
 use function Funct\Collection\union;
 

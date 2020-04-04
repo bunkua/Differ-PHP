@@ -1,11 +1,11 @@
 <?php
 
-namespace Formatters\Json;
+namespace Differ\Formatters\Json;
 
 function json($tree)
 {
     $prepared = reduce($tree);
-    
+
     return json_encode($prepared, JSON_PRETTY_PRINT);
 }
 

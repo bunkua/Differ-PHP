@@ -1,8 +1,8 @@
 <?php
 
-namespace Formatters\Pretty;
+namespace Differ\Formatters\Pretty;
 
-use function Lib\reduce;
+use function Differ\Lib\reduce;
 
 const BASE_INDENT_LEVEL = 0;
 const INDENT_SPACES = 4;

@@ -1,10 +1,10 @@
 <?php
 
-namespace Render;
+namespace Differ\Render;
 
-use function Formatters\Pretty\pretty;
-use function Formatters\Plain\plain;
-use function Formatters\Json\json;
+use function Differ\Formatters\Pretty\pretty;
+use function Differ\Formatters\Plain\plain;
+use function Differ\Formatters\Json\json;
 
 function render($tree, $outputFormat)
 {

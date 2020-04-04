@@ -2,9 +2,9 @@
 
 namespace Differ;
 
-use function Parser\parse;
-use function Builder\buildTree;
-use function Render\render;
+use function Differ\Parser\parse;
+use function Differ\Builder\buildTree;
+use function Differ\Render\render;
 
 function genDiff($pathToFile1, $pathToFile2, $outputFormat)
 {

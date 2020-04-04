@@ -1,8 +1,8 @@
 <?php
 
-namespace Formatters\Plain;
+namespace Differ\Formatters\Plain;
 
-use function Lib\reduce;
+use function Differ\Lib\reduce;
 use function Funct\Collection\flatten;
 
 const BASE_POINTER = [];

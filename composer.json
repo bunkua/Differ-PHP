@@ -18,7 +18,7 @@
     "bin": ["bin/gendiff"],
     "autoload": {
         "files": [
-            "src/engine.php",
+            "src/Engine.php",
             "src/Gendiff.php",
             "src/Parser.php",
             "src/Builder.php",
