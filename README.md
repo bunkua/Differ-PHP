@@ -18,6 +18,8 @@ Execute this command to install package globally:
 ```
 composer global require bunkua/hexlet_php_project2
 ```
+[![asciicast](https://asciinema.org/a/IQVGvNjvNarl3jDmdBhRltkXL.svg)](https://asciinema.org/a/IQVGvNjvNarl3jDmdBhRltkXL)
+
 
 ### Usage
 Execute in bash:
@@ -34,11 +36,29 @@ or explicitly specifying the desired format:
 ```
 gendiff --format pretty <firstFile> <secondFile>
 ```
+[![asciicast](https://asciinema.org/a/7vfFQBJbYW78RmhperVMnOW2L.svg)](https://asciinema.org/a/7vfFQBJbYW78RmhperVMnOW2L)
+
 
 ```
 gendiff --format plain <firstFile> <secondFile>
 ```
+[![asciicast](https://asciinema.org/a/HcOeM8lMPCCQNhc4EXXDDrPeb.svg)](https://asciinema.org/a/HcOeM8lMPCCQNhc4EXXDDrPeb)
+
 
 ```
 gendiff --format json <firstFile> <secondFile>
+```
+[![asciicast](https://asciinema.org/a/ARWtpcoGigeTGOfCg9PdmZICv.svg)](https://asciinema.org/a/ARWtpcoGigeTGOfCg9PdmZICv)
+
+
+### Usage as a package
+
+You can use Differ as a package.
+To do so you need add dependency to your `composer.json` file:
+```
+composer require bunkua/php-project-2
+```
+Then you will be able to use it in next way:
+```
+$differrence = \Differ\genDiff($pathToFileBefore, $pathToFileAfter, $outputFormat);
 ```
