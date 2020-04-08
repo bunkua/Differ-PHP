@@ -62,6 +62,10 @@ function getValue($value)
         return 'complex value';
     }
 
+    if (is_array($value)) {
+        return 'Array';
+    }
+    
     if (is_bool($value)) {
         return $value ? 'true' : 'false';
     }

@@ -5,7 +5,8 @@
     "setting3": true,
     "setting6": {
       "key": "value"
-    }
+    },
+    "setting10": [1, 2, 3]
   },
   "group1": {
     "baz": "bas",

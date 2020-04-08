@@ -9,6 +9,7 @@ use function Differ\Formatters\Json\json;
 function render($tree, $outputFormat)
 {
     $render = chooseRenderer($outputFormat);
+    
     return $render($tree);
 }
 
@@ -21,7 +22,7 @@ function chooseRenderer($outputFormat)
             };
         case 'json':
             return function ($tree) {
-                return json($tree);
+                return json_encode($tree, JSON_PRETTY_PRINT);
             };
         case 'pretty':
             return function ($tree) {

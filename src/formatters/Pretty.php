@@ -72,6 +72,12 @@ function processValue($value, $level)
         $mappedValue = array_map($func, array_keys($valueArr), $valueArr);
         return putBraces($mappedValue, $level);
     }
+
+    if (is_array($value)) {
+        $string = implode(", ", $value);
+        return "[{$string}]";
+    }
+
     if (is_bool($value)) {
         return $value ? 'true' : 'false';
     }
