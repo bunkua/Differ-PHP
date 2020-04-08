@@ -25,9 +25,9 @@ function getParser($filepath)
     return function ($fileContents) use ($inputFileFormat) {
         switch ($inputFileFormat) {
             case "json":
-                return (array) json_decode($fileContents);
+                return json_decode($fileContents);
             case "yml":
-                return (array) Yaml::parse($fileContents, Yaml::PARSE_OBJECT_FOR_MAP);
+                return Yaml::parse($fileContents, Yaml::PARSE_OBJECT_FOR_MAP);
             default:
                 throw new \Exception("Wrong file format '$inputFileFormat' or not supported");
         }
