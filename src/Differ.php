@@ -1,6 +1,6 @@
 <?php
 
-namespace Differ;
+namespace Differ\Differ;
 
 use function Differ\Parser\parse;
 use function Differ\Builder\buildTree;

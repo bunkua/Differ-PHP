@@ -19,7 +19,7 @@
     "autoload": {
         "files": [
             "src/Engine.php",
-            "src/Gendiff.php",
+            "src/Differ.php",
             "src/Parser.php",
             "src/Builder.php",
             "src/Render.php",

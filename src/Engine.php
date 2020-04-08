@@ -2,7 +2,7 @@
 
 namespace Differ\Engine;
 
-use function Differ\genDiff;
+use function Differ\Differ\genDiff;
 
 function run()
 {

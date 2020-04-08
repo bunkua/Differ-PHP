@@ -13,7 +13,7 @@ class GendiffTest extends TestCase
     {
         $expected = file_get_contents($resultPath);
 
-        $this->assertEquals($expected, genDiff($pathBefore, $pathAfter, $format));
+        $this->assertEquals($expected, Differ\genDiff($pathBefore, $pathAfter, $format));
     }
 
     public function dataProvider()
