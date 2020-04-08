@@ -4,7 +4,6 @@ namespace Differ\Render;
 
 use function Differ\Formatters\Pretty\pretty;
 use function Differ\Formatters\Plain\plain;
-use function Differ\Formatters\Json\json;
 
 function render($tree, $outputFormat)
 {

@@ -25,7 +25,6 @@
             "src/Render.php",
             "src/formatters/Pretty.php",
             "src/formatters/Plain.php",
-            "src/formatters/Json.php",
             "src/Lib/Lib.php"
         ]
     },
