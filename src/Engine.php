@@ -2,6 +2,8 @@
 
 namespace Differ\Engine;
 
+use function Differ\genDiff;
+
 function run()
 {
     $doc = file_get_contents(__DIR__ . '/helpfile.docopt');
@@ -11,5 +13,9 @@ function run()
     $pathToFile2 = $args->args['<secondFile>'];
     $format = $args->args["--format"];
 
-    echo genDiff($pathToFile1, $pathToFile2, $format) . "\n";
+    try {
+        echo genDiff($pathToFile1, $pathToFile2, $format) . "\n";
+    } catch (\Exception $e) {
+        echo "ERROR in \Differ: " . $e->getMessage() . "\n";
+    }
 }
