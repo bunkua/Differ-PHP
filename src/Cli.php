@@ -1,6 +1,6 @@
 <?php
 
-namespace Differ\Engine;
+namespace Differ\Cli;
 
 use function Differ\Differ\genDiff;
 

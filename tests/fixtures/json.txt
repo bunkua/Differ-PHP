@@ -1,6 +1,7 @@
 {
     "0": {
         "key": "common",
+        "status": "nested",
         "children": {
             "0": {
                 "status": "unchanged",
@@ -60,6 +61,7 @@
     },
     "1": {
         "key": "group1",
+        "status": "nested",
         "children": [
             {
                 "status": "changed",

@@ -18,14 +18,14 @@
     "bin": ["bin/gendiff"],
     "autoload": {
         "files": [
-            "src/Engine.php",
+            "src/Cli.php",
             "src/Differ.php",
+            "src/Reader.php",
             "src/Parser.php",
             "src/Builder.php",
             "src/Render.php",
             "src/formatters/Pretty.php",
-            "src/formatters/Plain.php",
-            "src/Lib/Lib.php"
+            "src/formatters/Plain.php"
         ]
     },
     "require-dev": {

@@ -2,57 +2,39 @@
 
 namespace Differ\Formatters\Plain;
 
-use function Differ\Lib\reduce;
-use function Funct\Collection\flatten;
-
-const BASE_POINTER = [];
-
-function plain($tree, $pointer = BASE_POINTER)
+function plain($tree, $nestingPath = '')
 {
-    $preparedPlainData = makePlain($tree, $pointer);
+    $preparedStrings = array_map(function ($node) use ($nestingPath) {
+        return processNode($node, $nestingPath);
+    }, $tree);
 
-    return implode("\n", flatten($preparedPlainData));
+    $filteredStrings = array_filter($preparedStrings, function ($item) {
+        return $item !== null;
+    });
+
+    return implode("\n", $filteredStrings);
 }
 
-function makePlain($tree, $pointer)
+function processNode($node, $nestingPath)
 {
-    $preparedData = reduce($tree, function ($node, $pointer) {
-        return processNode($node, $pointer);
-    }, $pointer);
+    $currNestingPath = ($nestingPath === '') ? $node['key'] : "{$nestingPath}.{$node['key']}";
 
-    return $preparedData;
-}
-
-function processNode($node, $pointer)
-{
-    $children = $node['children'] ?? null;
-    $key = $node['key'];
-
-    if ($children) {
-        $currPointer = array_merge($pointer, [$key]);
-        return makePlain($children, $currPointer);
+    if ($node['status'] === 'nested') {
+        return plain($node['children'], $currNestingPath);
     }
-
-    return getMessage($node, $pointer);
-}
-
-function getMessage($node, $pointer)
-{
-    $status = $node['status'];
+    
     $newValue = getValue($node['newValue']);
     $oldValue = getValue($node['oldValue']);
 
-    $currPointer = implode('.', array_merge($pointer, [$node['key']]));
-
-    switch ($status) {
+    switch ($node['status']) {
         case 'added':
-            return ["Property '{$currPointer}' was added with value: '{$newValue}'"];
+            return "Property '{$currNestingPath}' was added with value: '{$newValue}'";
         case 'removed':
-            return ["Property '{$currPointer}' was removed"];
+            return "Property '{$currNestingPath}' was removed";
         case 'changed':
-            return ["Property '{$currPointer}' was changed. From '{$oldValue}' to '{$newValue}'"];
+            return "Property '{$currNestingPath}' was changed. From '{$oldValue}' to '{$newValue}'";
         default:
-            return [];
+            return null;
     }
 }
 
