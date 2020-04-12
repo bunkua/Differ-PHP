@@ -11,7 +11,7 @@ This package calculates the difference between two JSON or YAML files. In additi
 ### Install
 
 
-- You need to Composer is installed.
+- You need to Composer has been installed.
 
 Execute this command to install package globally:
 
