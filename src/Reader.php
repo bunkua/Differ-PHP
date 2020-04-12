@@ -4,11 +4,11 @@ namespace Differ\Reader;
 
 function read($filepath)
 {
-    if (file_exists($filepath)) {
-        return file_get_contents($filepath);
-    } else {
+    if (!file_exists($filepath)) {
         throw new \Exception("File '$filepath' does not exists");
     }
+    
+    return file_get_contents($filepath);
 }
 
 function getFileFormat($filepath)
