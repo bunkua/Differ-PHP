@@ -28,14 +28,19 @@ function processNode($node, $nestingPath)
 
     switch ($node['status']) {
         case 'added':
-            return "Property '{$currNestingPath}' was added with value: '{$newValue}'";
+            $string = "Property '{$currNestingPath}' was added with value: '{$newValue}'";
+            break;
         case 'removed':
-            return "Property '{$currNestingPath}' was removed";
+            $string = "Property '{$currNestingPath}' was removed";
+            break;
         case 'changed':
-            return "Property '{$currNestingPath}' was changed. From '{$oldValue}' to '{$newValue}'";
+            $string = "Property '{$currNestingPath}' was changed. From '{$oldValue}' to '{$newValue}'";
+            break;
         default:
             return null;
     }
+
+    return $string;
 }
 
 function getValue($value)

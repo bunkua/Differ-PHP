@@ -22,20 +22,27 @@ function processNode($node, $nestingLevel)
 
     switch ($node['status']) {
         case 'nested':
-            return "{$baseIndent}{$key}: " . pretty($node['children'], $nestingLevel);
+            $string = "{$baseIndent}{$key}: " . pretty($node['children'], $nestingLevel);
+            break;
         case 'added':
-            return "{$indentNew}{$key}: " . processValue($node['newValue'], $nestingLevel);
+            $string = "{$indentNew}{$key}: " . processValue($node['newValue'], $nestingLevel);
+            break;
         case 'removed':
-            return "{$indentOld}{$key}: " . processValue($node['oldValue'], $nestingLevel);
+            $string = "{$indentOld}{$key}: " . processValue($node['oldValue'], $nestingLevel);
+            break;
         case 'unchanged':
-            return "{$baseIndent}{$key}: " . processValue($node['newValue'], $nestingLevel);
+            $string = "{$baseIndent}{$key}: " . processValue($node['newValue'], $nestingLevel);
+            break;
         case 'changed':
             $new = "{$indentNew}{$key}: " . processValue($node['newValue'], $nestingLevel);
             $old = "{$indentOld}{$key}: " . processValue($node['oldValue'], $nestingLevel);
-            return "{$new}\n{$old}";
+            $string = "{$new}\n{$old}";
+            break;
         default:
             return null;
     }
+
+    return $string;
 }
 
 function processValue($value, $nestingLevel)
