@@ -47,14 +47,12 @@ function processNode($node, $nestingLevel)
 
 function processValue($value, $nestingLevel)
 {
-    if (is_object($value)) {
-        $valueArr = (array) $value;
-        $func = function ($key, $item) use ($nestingLevel) {
-            $indent = makeIndent($nestingLevel + 1);
-            return "{$indent}{$key}: {$item}";
-        };
-        $mappedValue = array_map($func, array_keys($valueArr), $valueArr);
-        return putBraces($mappedValue, $nestingLevel);
+    if (is_string($value) || is_int($value)) {
+        return $value;
+    }
+
+    if (is_bool($value)) {
+        return $value ? 'true' : 'false';
     }
 
     if (is_array($value)) {
@@ -62,11 +60,15 @@ function processValue($value, $nestingLevel)
         return "[{$string}]";
     }
 
-    if (is_bool($value)) {
-        return $value ? 'true' : 'false';
-    }
+    $valueArr = (array) $value;
+    $func = function ($key, $item) use ($nestingLevel) {
+        $indent = makeIndent($nestingLevel + 1);
+        return "{$indent}{$key}: {$item}";
+    };
 
-    return $value;
+    $mappedValue = array_map($func, array_keys($valueArr), (array) $value);
+    
+    return putBraces($mappedValue, $nestingLevel);
 }
 
 function makeIndent($level)
