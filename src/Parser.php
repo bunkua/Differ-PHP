@@ -9,10 +9,8 @@ function parse($data, $dataFormat)
     switch ($dataFormat) {
         case "json":
             return json_decode($data);
-            break;
         case "yml":
             return Yaml::parse($data, Yaml::PARSE_OBJECT_FOR_MAP);
-            break;
         default:
             throw new \Exception("Wrong file format '$dataFormat' or not supported");
     }
