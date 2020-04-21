@@ -24,7 +24,6 @@ jobs:
         with:
           # Specify the PHP version
           php-version: '7.3'
-          coverage: 'xdebug'
       - name: Install
         # Install project
         run: make install
