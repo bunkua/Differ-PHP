@@ -13,8 +13,10 @@ class GendiffTest extends TestCase
     {
         $fixturesPath = "tests/fixtures/";
         $dataPath = "{$fixturesPath}{$inputFormat}/";
+
         $beforePath = "{$dataPath}/before.{$inputFormat}";
         $afterPath = "{$dataPath}/after.{$inputFormat}";
+        
         $resultPath = "{$fixturesPath}/{$outputFormat}.txt";
         $expected = file_get_contents($resultPath);
 
