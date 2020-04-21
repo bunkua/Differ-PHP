@@ -11,9 +11,10 @@ class GendiffTest extends TestCase
     */
     public function testgenDiff($inputFormat, $outputFormat)
     {
-        $fixturesPath = "tests/fixtures";
-        $beforePath = "{$fixturesPath}/{$inputFormat}/before.{$inputFormat}";
-        $afterPath = "{$fixturesPath}/{$inputFormat}/after.{$inputFormat}";
+        $fixturesPath = "tests/fixtures/";
+        $dataPath = "{$fixturesPath}{$inputFormat}/";
+        $beforePath = "{$dataPath}/before.{$inputFormat}";
+        $afterPath = "{$dataPath}/after.{$inputFormat}";
         $resultPath = "{$fixturesPath}/{$outputFormat}.txt";
         $expected = file_get_contents($resultPath);
 

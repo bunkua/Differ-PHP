@@ -3,6 +3,7 @@
 namespace Differ\Formatters\Pretty;
 
 const INDENT_SPACES = 4;
+const SIGN_SPACES = 2;
 
 function pretty($tree, $nestingLevel = 0)
 {
@@ -16,30 +17,32 @@ function pretty($tree, $nestingLevel = 0)
 function processNode($node, $nestingLevel)
 {
     $key = $node['key'];
-    $baseIndent = makeIndent($nestingLevel);
-    $indentNew = substr_replace($baseIndent, "+", -2, 1);
-    $indentOld = substr_replace($baseIndent, "-", -2, 1);
+    $baseIndent = str_repeat(' ', $nestingLevel * INDENT_SPACES - SIGN_SPACES);
+
+    $noSignSpace = "{$baseIndent}  ";
+    $addSign = "{$baseIndent}+ ";
+    $removeSign = "{$baseIndent}- ";
 
     switch ($node['status']) {
         case 'nested':
-            $string = "{$baseIndent}{$key}: " . pretty($node['children'], $nestingLevel);
+            $string = "{$noSignSpace}{$key}: " . pretty($node['children'], $nestingLevel);
             break;
         case 'added':
-            $string = "{$indentNew}{$key}: " . processValue($node['newValue'], $nestingLevel);
+            $string = "{$addSign}{$key}: " . processValue($node['newValue'], $nestingLevel);
             break;
         case 'removed':
-            $string = "{$indentOld}{$key}: " . processValue($node['oldValue'], $nestingLevel);
+            $string = "{$removeSign}{$key}: " . processValue($node['oldValue'], $nestingLevel);
             break;
         case 'unchanged':
-            $string = "{$baseIndent}{$key}: " . processValue($node['newValue'], $nestingLevel);
+            $string = "{$noSignSpace}{$key}: " . processValue($node['newValue'], $nestingLevel);
             break;
         case 'changed':
-            $new = "{$indentNew}{$key}: " . processValue($node['newValue'], $nestingLevel);
-            $old = "{$indentOld}{$key}: " . processValue($node['oldValue'], $nestingLevel);
+            $new = "{$addSign}{$key}: " . processValue($node['newValue'], $nestingLevel);
+            $old = "{$removeSign}{$key}: " . processValue($node['oldValue'], $nestingLevel);
             $string = "{$new}\n{$old}";
             break;
         default:
-            return null;
+            throw new \Exception("Wrong node type");
     }
 
     return $string;

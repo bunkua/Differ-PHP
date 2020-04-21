@@ -8,18 +8,18 @@ use function Differ\Parser\parse;
 use function Differ\Builder\buildTree;
 use function Differ\Render\render;
 
-function genDiff($pathToFile1, $pathToFile2, $outputFormat)
+function genDiff($pathBefore, $pathAfter, $outputFormat)
 {
-        $firstFileContents = read($pathToFile1);
-        $firstFileFormat = getFileFormat($pathToFile1);
+        $beforeContent = read($pathBefore);
+        $beforeFormat = getFileFormat($pathBefore);
 
-        $secondFileContents = read($pathToFile2);
-        $secondFileFormat = getFileFormat($pathToFile2);
+        $afterContent = read($pathAfter);
+        $afterFormat = getFileFormat($pathAfter);
         
-        $firstFileData = parse($firstFileContents, $firstFileFormat);
-        $secondFileData = parse($secondFileContents, $secondFileFormat);
+        $beforeParsedData = parse($beforeContent, $beforeFormat);
+        $afterParsedData = parse($afterContent, $afterFormat);
 
-        $diffTree = buildTree($firstFileData, $secondFileData);
+        $diffTree = buildTree($beforeParsedData, $afterParsedData);
         
         return render($diffTree, $outputFormat);
 }
