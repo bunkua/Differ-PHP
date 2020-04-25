@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class GendiffTest extends TestCase
 {
-    private $fixturesPath = "tests/fixtures/";
+    private $fixturesPath = "tests/fixtures";
     
     /**
     * @dataProvider dataProvider
@@ -38,7 +38,7 @@ class GendiffTest extends TestCase
         $fixturesPath = $this->fixturesPath;
 
         if ($fileName === 'result') {
-            return "{$fixturesPath}{$format}.txt";
+            return "{$fixturesPath}/{$format}.txt";
         }
 
         return "{$fixturesPath}/{$format}/{$fileName}.{$format}";

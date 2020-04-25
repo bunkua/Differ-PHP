@@ -5,19 +5,19 @@ namespace Differ\Formatters\Pretty;
 const INDENT_SPACES = 4;
 const SIGN_SPACES = 2;
 
-function pretty($tree, $nestingLevel = 0)
+function prettify($tree, $depth = 0)
 {
-    $preparedStrings = array_map(function ($item) use ($nestingLevel) {
-        return processNode($item, $nestingLevel + 1);
+    $preparedStrings = array_map(function ($item) use ($depth) {
+        return processNode($item, $depth + 1);
     }, $tree);
 
-    return putBraces($preparedStrings, $nestingLevel);
+    return putBraces($preparedStrings, $depth);
 }
 
-function processNode($node, $nestingLevel)
+function processNode($node, $depth)
 {
     $key = $node['key'];
-    $baseIndent = str_repeat(' ', $nestingLevel * INDENT_SPACES - SIGN_SPACES);
+    $baseIndent = str_repeat(' ', $depth * INDENT_SPACES - SIGN_SPACES);
 
     $noSignSpace = "{$baseIndent}  ";
     $addSign = "{$baseIndent}+ ";
@@ -25,30 +25,23 @@ function processNode($node, $nestingLevel)
 
     switch ($node['status']) {
         case 'nested':
-            $string = "{$noSignSpace}{$key}: " . pretty($node['children'], $nestingLevel);
-            break;
+            return "{$noSignSpace}{$key}: " . prettify($node['children'], $depth);
         case 'added':
-            $string = "{$addSign}{$key}: " . processValue($node['newValue'], $nestingLevel);
-            break;
+            return "{$addSign}{$key}: " . stringifyValue($node['newValue'], $depth);
         case 'removed':
-            $string = "{$removeSign}{$key}: " . processValue($node['oldValue'], $nestingLevel);
-            break;
+            return "{$removeSign}{$key}: " . stringifyValue($node['oldValue'], $depth);
         case 'unchanged':
-            $string = "{$noSignSpace}{$key}: " . processValue($node['newValue'], $nestingLevel);
-            break;
+            return "{$noSignSpace}{$key}: " . stringifyValue($node['newValue'], $depth);
         case 'changed':
-            $new = "{$addSign}{$key}: " . processValue($node['newValue'], $nestingLevel);
-            $old = "{$removeSign}{$key}: " . processValue($node['oldValue'], $nestingLevel);
-            $string = "{$new}\n{$old}";
-            break;
+            $new = "{$addSign}{$key}: " . stringifyValue($node['newValue'], $depth);
+            $old = "{$removeSign}{$key}: " . stringifyValue($node['oldValue'], $depth);
+            return "{$new}\n{$old}";
         default:
-            throw new \Exception("Wrong node type");
+            throw new \Exception("Wrong node status: '{$node['status']}");
     }
-
-    return $string;
 }
 
-function processValue($value, $nestingLevel)
+function stringifyValue($value, $depth)
 {
     if (is_string($value) || is_int($value)) {
         return $value;
@@ -64,25 +57,25 @@ function processValue($value, $nestingLevel)
     }
 
     $valueArr = (array) $value;
-    $func = function ($key, $item) use ($nestingLevel) {
-        $indent = makeIndent($nestingLevel + 1);
+    $func = function ($key, $item) use ($depth) {
+        $indent = makeIndent($depth + 1);
         return "{$indent}{$key}: {$item}";
     };
 
     $mappedValue = array_map($func, array_keys($valueArr), (array) $value);
     
-    return putBraces($mappedValue, $nestingLevel);
+    return putBraces($mappedValue, $depth);
 }
 
-function makeIndent($level)
+function makeIndent($depth)
 {
-    return str_repeat(' ', $level * INDENT_SPACES);
+    return str_repeat(' ', $depth * INDENT_SPACES);
 }
 
-function putBraces($prepared, $level)
+function putBraces($prepared, $depth)
 {
     $openingBrace = "{\n";
-    $closingBrace = makeIndent($level) . "}";
+    $closingBrace = makeIndent($depth) . "}";
     $string = implode("\n", $prepared) . "\n";
 
     return "{$openingBrace}{$string}{$closingBrace}";

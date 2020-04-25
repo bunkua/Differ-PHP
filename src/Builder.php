@@ -53,11 +53,11 @@ function buildTree($before, $after)
         }
     };
     
-    $propertyNames = getUniqueObjectKeys($before, $after);
+    $propertyNames = uniteObjectsKeys($before, $after);
     return array_map($makeNode, $propertyNames);
 }
 
-function getUniqueObjectKeys(...$objects)
+function uniteObjectsKeys(...$objects)
 {
     return array_reduce($objects, function ($acc, $object) {
         $objectVars = get_object_vars($object);

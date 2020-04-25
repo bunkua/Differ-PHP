@@ -2,8 +2,8 @@
 
 namespace Differ\Render;
 
-use function Differ\Formatters\Pretty\pretty;
-use function Differ\Formatters\Plain\plain;
+use function Differ\Formatters\Pretty\prettify;
+use function Differ\Formatters\Plain\plainify;
 
 function render($tree, $outputFormat)
 {
@@ -17,7 +17,7 @@ function chooseRenderer($outputFormat)
     switch ($outputFormat) {
         case 'plain':
             return function ($tree) {
-                return plain($tree);
+                return plainify($tree);
             };
         case 'json':
             return function ($tree) {
@@ -25,7 +25,7 @@ function chooseRenderer($outputFormat)
             };
         case 'pretty':
             return function ($tree) {
-                return pretty($tree);
+                return prettify($tree);
             };
         default:
             throw new \Exception("Output format '$outputFormat' is wrong or not supported");

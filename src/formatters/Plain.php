@@ -2,7 +2,7 @@
 
 namespace Differ\Formatters\Plain;
 
-function plain($tree, $nestingPath = '')
+function plainify($tree, $nestingPath = '')
 {
     $preparedStrings = array_map(function ($node) use ($nestingPath) {
         return processNode($node, $nestingPath);
@@ -21,29 +21,29 @@ function processNode($node, $nestingPath)
 
     switch ($node['status']) {
         case 'nested':
-            return plain($node['children'], $currNestingPath);
+            return plainify($node['children'], $currNestingPath);
         case 'added':
-            $newValue = getValue($node['newValue']);
+            $newValue = stringifyValue($node['newValue']);
             $string = "Property '{$currNestingPath}' was added with value: '{$newValue}'";
             break;
         case 'removed':
             $string = "Property '{$currNestingPath}' was removed";
             break;
         case 'changed':
-            $newValue = getValue($node['newValue']);
-            $oldValue = getValue($node['oldValue']);
+            $newValue = stringifyValue($node['newValue']);
+            $oldValue = stringifyValue($node['oldValue']);
             $string = "Property '{$currNestingPath}' was changed. From '{$oldValue}' to '{$newValue}'";
             break;
         case 'unchanged':
             return;
         default:
-            throw new \Exception('Wrong node type passed.');
+            throw new \Exception("Wrong node status: '{$node['status']}");
     }
 
     return $string;
 }
 
-function getValue($value)
+function stringifyValue($value)
 {
     if (is_object($value)) {
         return 'complex value';
