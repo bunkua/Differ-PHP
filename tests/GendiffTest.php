@@ -13,9 +13,9 @@ class GendiffTest extends TestCase
     */
     public function testgenDiff($inputFormat, $outputFormat)
     {
-        $beforePath = $this->getPath($inputFormat, 'before');
-        $afterPath = $this->getPath($inputFormat, 'after');
-        $resultPath = $this->getPath($outputFormat, 'result');
+        $beforePath = $this->getPath("{$inputFormat}/before.{$inputFormat}");
+        $afterPath = $this->getPath("{$inputFormat}/after.{$inputFormat}");
+        $resultPath = $this->getPath("{$outputFormat}.txt");
         $expected = file_get_contents($resultPath);
 
         $this->assertEquals($expected, \Differ\Differ\genDiff($beforePath, $afterPath, $outputFormat));
@@ -33,14 +33,10 @@ class GendiffTest extends TestCase
         ];
     }
 
-    private function getPath($format, $fileName)
+    private function getPath($fileName)
     {
         $fixturesPath = $this->fixturesPath;
 
-        if ($fileName === 'result') {
-            return "{$fixturesPath}/{$format}.txt";
-        }
-
-        return "{$fixturesPath}/{$format}/{$fileName}.{$format}";
+        return "{$fixturesPath}/{$fileName}";
     }
 }
