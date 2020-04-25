@@ -24,23 +24,18 @@ function processNode($node, $nestingPath)
             return plainify($node['children'], $currNestingPath);
         case 'added':
             $newValue = stringifyValue($node['newValue']);
-            $string = "Property '{$currNestingPath}' was added with value: '{$newValue}'";
-            break;
+            return "Property '{$currNestingPath}' was added with value: '{$newValue}'";
         case 'removed':
-            $string = "Property '{$currNestingPath}' was removed";
-            break;
+            return "Property '{$currNestingPath}' was removed";
         case 'changed':
             $newValue = stringifyValue($node['newValue']);
             $oldValue = stringifyValue($node['oldValue']);
-            $string = "Property '{$currNestingPath}' was changed. From '{$oldValue}' to '{$newValue}'";
-            break;
+            return "Property '{$currNestingPath}' was changed. From '{$oldValue}' to '{$newValue}'";
         case 'unchanged':
-            return;
+            return null;
         default:
             throw new \Exception("Wrong node status: '{$node['status']}");
     }
-
-    return $string;
 }
 
 function stringifyValue($value)
