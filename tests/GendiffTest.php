@@ -32,6 +32,7 @@ class GendiffTest extends TestCase
             ['yaml', 'json']
         ];
     }
+    
     private function getFilename($name, $extension)
     {
         return implode('.', [$name, $extension]);
