@@ -13,8 +13,8 @@ class GendiffTest extends TestCase
     */
     public function testgenDiff($inputFormat, $outputFormat)
     {
-        $beforePath = $this->getPath($inputFormat, $this->getFilename('before', $inputFormat));
-        $afterPath = $this->getPath($inputFormat, $this->getFilename('after', $inputFormat));
+        $beforePath = $this->getPath($this->getFilename('before', $inputFormat));
+        $afterPath = $this->getPath($this->getFilename('after', $inputFormat));
         $resultPath = $this->getPath($this->getFilename($outputFormat, 'txt'));
         $expected = file_get_contents($resultPath);
 
@@ -37,10 +37,10 @@ class GendiffTest extends TestCase
         return implode('.', [$name, $extension]);
     }
 
-    private function getPath(...$args)
+    private function getPath($filename)
     {
         $fixturesPath = $this->fixturesPath;
 
-        return implode('/', [$fixturesPath, ...$args]);
+        return implode('/', [$fixturesPath, $filename]);
     }
 }
