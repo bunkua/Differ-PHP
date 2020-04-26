@@ -3,6 +3,7 @@
 namespace Differ\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Differ\Differ;
 
 class GendiffTest extends TestCase
 {
@@ -18,7 +19,7 @@ class GendiffTest extends TestCase
         $resultPath = $this->getPath($this->getFilename($outputFormat, 'txt'));
         $expected = file_get_contents($resultPath);
 
-        $this->assertEquals($expected, \Differ\Differ\genDiff($beforePath, $afterPath, $outputFormat));
+        $this->assertEquals($expected, Differ\genDiff($beforePath, $afterPath, $outputFormat));
     }
 
     public function dataProvider()
